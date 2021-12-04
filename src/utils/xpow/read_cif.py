@@ -116,5 +116,12 @@ def read_cif(cif_file_path) :
     
     # output = (cell_params,sym_array,atom_names,atom_xyz,atom_occ,atom_Biso)
     output = (cell_params,atom_names,atom_xyz,atom_occ,atom_Biso)
+    # output = {
+    #     "cell_params":cell_params,
+    #     "atom_names":atom_names,
+    #     "atom_xyz":atom_xyz,
+    #     "atom_occ":atom_occ,
+    #     "atom_Biso":atom_Biso,
+    # }
     
     return output
