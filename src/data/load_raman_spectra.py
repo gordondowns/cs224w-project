@@ -1,7 +1,7 @@
 from ..utils import qxrd_apc as apc
-from ..utils.raman_utils import process_raman_spectrum
 import numpy as np
 from glob import glob
+
 
 def load_raman_data(
         model_wavenumber_values, #np.load(repo_file_paths.model_wavenumber_paths[version])
@@ -30,6 +30,7 @@ def load_raman_data(
     # raman_spectra = np.vstack(raman_spectra)
     return file_paths_list, mineral_names, wavelengths, raman_spectra
 
+
 def load_single_raman_spectrum(
         model_wavenumber_values, #np.load(repo_file_paths.model_wavenumber_paths[version])
         file_path):
@@ -38,3 +39,13 @@ def load_single_raman_spectrum(
     temp_apc = apc.TopLevel(file_path,twotheta_ranges=[(0.0,100000.0)],print_warnings=False)
     raman_spectrum = process_raman_spectrum(temp_apc.input_profile.xy_data,model_wavenumber_values)
     return mineral_name, wavelength, raman_spectrum
+
+
+def process_raman_spectrum(xy,model_twotheta_values,zero_pad=True):
+    if zero_pad:
+        intensity_interpolated = np.interp(model_twotheta_values,xy[0],xy[1],left=0.0,right=0.0)
+    else:
+        intensity_interpolated = np.interp(model_twotheta_values,xy[0],xy[1])
+    intensity_normalized = np.multiply(intensity_interpolated,1.0/np.max(intensity_interpolated))
+    # intensity_reshaped = intensity_normalized.reshape([1]+list(intensity_normalized.shape)+[1])
+    return intensity_normalized
