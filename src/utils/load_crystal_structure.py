@@ -1,4 +1,5 @@
-from ..utils.xpow.read_cif import read_cif
+# from ..utils.read_cif import read_cif
+from read_cif import read_cif
 import numpy as np
 from glob import glob
 import networkx as nx

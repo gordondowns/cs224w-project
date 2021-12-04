@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
+import numpy as np
+import CifFile #cif reader from https://pypi.python.org/pypi/PyCifRW/4.2.1
+# import symmmaker #wrapped fortran code for translating string matrix descriptions to matrices
 
-def read_cif(cif_file_path) :
-    import numpy as np
-    from . import symmmaker #wrapped fortran code for translating string matrix descriptions to matrices
-    import CifFile #cif reader from https://pypi.python.org/pypi/PyCifRW/4.2.1
-    
+def read_cif(cif_file_path) :    
     mycif = CifFile.CifFile()
     myblock = CifFile.CifBlock()
     mycif['a_block'] = myblock
@@ -12,12 +10,12 @@ def read_cif(cif_file_path) :
     data = mycif.first_block()
     
     num_sym = len(data['_space_group_symop_operation_xyz'])
-    symopmatrices = []
-    for i in range(num_sym):
-         symopmatrices.append(np.asfortranarray((symmmaker.make(data['_space_group_symop_operation_xyz'][i]))))
-    sym_array = np.zeros([num_sym,3,4])
-    for i in range(num_sym):
-        sym_array[i,:,:] = np.array(symopmatrices[i][0])
+    # symopmatrices = []
+    # for i in range(num_sym):
+    #      symopmatrices.append(np.asfortranarray((symmmaker.make(data['_space_group_symop_operation_xyz'][i]))))
+    # sym_array = np.zeros([num_sym,3,4])
+    # for i in range(num_sym):
+    #     sym_array[i,:,:] = np.array(symopmatrices[i][0])
     
     atom_names = np.array(data["_atom_site_label"])
     x_array = np.array(data["_atom_site_fract_x"]).astype(float)
@@ -116,6 +114,7 @@ def read_cif(cif_file_path) :
                 atom_names[i] = good_atom_names[j]
                 break
     
-    output = (cell_params,sym_array,atom_names,atom_xyz,atom_occ,atom_Biso)
+    # output = (cell_params,sym_array,atom_names,atom_xyz,atom_occ,atom_Biso)
+    output = (cell_params,atom_names,atom_xyz,atom_occ,atom_Biso)
     
     return output
