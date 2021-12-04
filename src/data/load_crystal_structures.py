@@ -29,7 +29,7 @@ def direct_coords_to_cartesian_coords(atom_xyz_direct,cell_params):
     return atom_xyz_cartesian
 
 
-def load_single_crystal_structure(file_path, maximum_distance_for_edge = np.inf, verbose=False):
+def load_single_crystal_structure(file_path, min_distance_for_edge=0.001, max_distance_for_edge=np.inf, verbose=False):
     
     mineral_name = file_path.split('\\')[-1].split('/')[-1].split('0')[0]
     out = read_cif(file_path)
@@ -63,7 +63,7 @@ def load_single_crystal_structure(file_path, maximum_distance_for_edge = np.inf,
     for i1,xyz1 in enumerate(atom_xyz_cartesian[:-1]):
         for i2,xyz2 in enumerate(atom_xyz_cartesian[i1+1:],start=i1+1):
             dist = np.linalg.norm(xyz1-xyz2)
-            if dist < maximum_distance_for_edge:
+            if min_distance_for_edge < dist < max_distance_for_edge:
                 G.add_edge(i1,i2,dist=dist)
 
     if verbose:
