@@ -113,4 +113,6 @@ dependencies:
   - yaml=0.2.5=he774522_0
   - zlib=1.2.11=h62dcd97_4
   - zstd=1.4.9=h19a0ad4_0
+  - pip:
+    - pycifrw==4.4.3
 prefix: C:\Users\gordon\anaconda3\envs\cs224wproj
