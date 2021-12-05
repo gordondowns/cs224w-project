@@ -49,7 +49,7 @@ def load_single_crystal_structure(file_path, min_distance_for_edge=0.001, max_di
         atomic_weight = atomic_weight_dict[el]
         electronegativity = electronegativity_dict[el]
         G.add_node(i,
-            element = el, 
+            element = el,
             xyz = xyz, 
             occ = occ, 
             Biso = Biso, 
