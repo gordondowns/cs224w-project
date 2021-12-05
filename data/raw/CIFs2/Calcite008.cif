@@ -1,0 +1,87 @@
+data_global
+_chemical_name_mineral 'Calcite'
+loop_
+_publ_author_name
+'Maslen E N'
+'Streltsov V A'
+'Streltsova N R'
+'Ishizawa N'
+_journal_name_full 'Acta Crystallographica, Section B'
+_journal_volume 51 
+_journal_year 1995
+_journal_page_first 929
+_journal_page_last 939
+_publ_section_title
+;
+ Electron density and optical anisotropy in rhombohedral carbonates.
+ III. Synchrotron X-ray studies of CaCO3, MgCO3 and MnCO3
+;
+_database_code_amcsd 0009890
+_chemical_formula_sum 'Ca C O3'
+_cell_length_a 4.988
+_cell_length_b 4.988
+_cell_length_c 17.068
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 120
+_cell_volume 367.761
+_exptl_crystal_density_diffrn      2.712
+_symmetry_space_group_name_H-M 'R -3 c'
+loop_
+_space_group_symop_operation_xyz
+  'x,y,z'
+  '2/3+x,1/3+y,1/3+z'
+  '1/3+x,2/3+y,2/3+z'
+  'x,x-y,1/2+z'
+  '2/3+x,1/3+x-y,5/6+z'
+  '1/3+x,2/3+x-y,1/6+z'
+  'y,x,1/2-z'
+  '2/3+y,1/3+x,5/6-z'
+  '1/3+y,2/3+x,1/6-z'
+  '-x+y,y,1/2+z'
+  '2/3-x+y,1/3+y,5/6+z'
+  '1/3-x+y,2/3+y,1/6+z'
+  '-x,-x+y,1/2-z'
+  '2/3-x,1/3-x+y,5/6-z'
+  '1/3-x,2/3-x+y,1/6-z'
+  '-y,-x,1/2+z'
+  '2/3-y,1/3-x,5/6+z'
+  '1/3-y,2/3-x,1/6+z'
+  'x-y,-y,1/2-z'
+  '2/3+x-y,1/3-y,5/6-z'
+  '1/3+x-y,2/3-y,1/6-z'
+  'y,-x+y,-z'
+  '2/3+y,1/3-x+y,1/3-z'
+  '1/3+y,2/3-x+y,2/3-z'
+  '-x+y,-x,z'
+  '2/3-x+y,1/3-x,1/3+z'
+  '1/3-x+y,2/3-x,2/3+z'
+  '-x,-y,-z'
+  '2/3-x,1/3-y,1/3-z'
+  '1/3-x,2/3-y,2/3-z'
+  '-y,x-y,z'
+  '2/3-y,1/3+x-y,1/3+z'
+  '1/3-y,2/3+x-y,2/3+z'
+  'x-y,x,-z'
+  '2/3+x-y,1/3+x,1/3-z'
+  '1/3+x-y,2/3+x,2/3-z'
+loop_
+_atom_site_label
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Ca   0.00000   0.00000   0.00000
+C   0.00000   0.00000   0.25000
+O   0.25700   0.00000   0.25000
+loop_
+_atom_site_aniso_label
+_atom_site_aniso_U_11
+_atom_site_aniso_U_22
+_atom_site_aniso_U_33
+_atom_site_aniso_U_12
+_atom_site_aniso_U_13
+_atom_site_aniso_U_23
+Ca 0.00988 0.00988 0.00932 0.00494 0.00000 0.00000
+C 0.00834 0.00834 0.01080 0.00417 0.00000 0.00000
+O 0.01129 0.02200 0.02020 0.01100 -0.00424 -0.00848
+

@@ -1,0 +1,63 @@
+data_global
+_chemical_name_mineral 'Albite'
+loop_
+_publ_author_name
+'Prewitt C T'
+'Sueno S'
+'Papike J J'
+_journal_name_full 'American Mineralogist'
+_journal_volume 61 
+_journal_year 1976
+_journal_page_first 1213
+_journal_page_last 1225
+_publ_section_title
+;
+ The crystal structures of high albite and monalbite at high temperatures
+ T = 24 deg C
+ feldspar
+;
+_database_code_amcsd 0000536
+_chemical_compound_source 'Synthetic'
+_chemical_formula_sum '(Na.983 Ca.012 K.005) (Si3 Al) O8'
+_cell_length_a 8.1535
+_cell_length_b 12.8694
+_cell_length_c 7.1070
+_cell_angle_alpha 93.521
+_cell_angle_beta 116.458
+_cell_angle_gamma 90.257
+_cell_volume 665.950
+_exptl_crystal_density_diffrn      2.618
+_symmetry_space_group_name_H-M 'C -1'
+loop_
+_space_group_symop_operation_xyz
+  'x,y,z'
+  '1/2+x,1/2+y,z'
+  '-x,-y,-z'
+  '1/2-x,1/2-y,-z'
+loop_
+_atom_site_label
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+_atom_site_U_iso_or_equiv
+Na   0.27370   0.00730   0.13290   0.98300   0.09651
+Ca   0.27370   0.00730   0.13290   0.01200   0.09651
+K   0.27370   0.00730   0.13290   0.00500   0.09651
+Si1o   0.00900   0.16500   0.21480   0.75000   0.00988
+Al1o   0.00900   0.16500   0.21480   0.25000   0.00988
+Si1m   0.00480   0.81450   0.22900   0.75000   0.00988
+Al1m   0.00480   0.81450   0.22900   0.25000   0.00988
+Si2o   0.69020   0.10790   0.32020   0.75000   0.01039
+Al2o   0.69020   0.10790   0.32020   0.25000   0.01039
+Si2m   0.68490   0.87760   0.35350   0.75000   0.01001
+Al2m   0.68490   0.87760   0.35350   0.25000   0.01001
+Oa1   0.00550   0.13510   0.98450   1.00000   0.02052
+Oa2   0.59160   0.99070   0.27830   1.00000   0.01672
+Obo   0.82120   0.10840   0.19900   1.00000   0.02090
+Obm   0.81840   0.84700   0.24550   1.00000   0.02394
+Oco   0.01620   0.29020   0.27700   1.00000   0.01836
+Ocm   0.02130   0.68730   0.21800   1.00000   0.01887
+Odo   0.19590   0.11230   0.38760   1.00000   0.01824
+Odm   0.18850   0.86750   0.42660   1.00000   0.02052
+

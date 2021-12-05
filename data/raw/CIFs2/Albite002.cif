@@ -1,0 +1,76 @@
+data_global
+_chemical_name_mineral 'Albite'
+loop_
+_publ_author_name
+'Harlow G E'
+_journal_name_full 'American Mineralogist'
+_journal_volume 67 
+_journal_year 1982
+_journal_page_first 975
+_journal_page_last 996
+_publ_section_title
+;
+ The anorthoclase structures: The effects of temperature and composition
+ Note: Or = 32.5, T = 400 C
+;
+_database_code_amcsd 0019653
+_chemical_compound_source 'Grande Calderira, Azores'
+_chemical_formula_sum '(Al Si3) Na.694 K.334 O8'
+_cell_length_a 8.3482
+_cell_length_b 12.9800
+_cell_length_c 7.1582
+_cell_angle_alpha 90
+_cell_angle_beta 116.109
+_cell_angle_gamma 90
+_cell_volume 696.510
+_exptl_crystal_density_diffrn      2.558
+_symmetry_space_group_name_H-M 'C 1 2/m 1'
+loop_
+_space_group_symop_operation_xyz
+  'x,y,z'
+  '1/2+x,1/2+y,z'
+  'x,-y,z'
+  '1/2+x,1/2-y,z'
+  '-x,y,-z'
+  '1/2-x,1/2+y,-z'
+  '-x,-y,-z'
+  '1/2-x,1/2-y,-z'
+loop_
+_atom_site_label
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_occupancy
+Al1   0.00910   0.17970   0.22380   0.25000
+Si1   0.00910   0.17970   0.22380   0.75000
+Al2   0.69850   0.11670   0.34310   0.25000
+Si2   0.69850   0.11670   0.34310   0.75000
+Na   0.27960   0.00000   0.13660   0.68600
+K   0.27960   0.00000   0.13660   0.33400
+Na   0.27960   0.00000   0.13660   0.00800
+O1   0.00000   0.14080   0.00000   1.00000
+O2   0.61570   0.00000   0.28840   1.00000
+O3   0.82420   0.13730   0.22360   1.00000
+O4   0.02750   0.30780   0.25440   1.00000
+O5   0.18830   0.12480   0.40870   1.00000
+loop_
+_atom_site_aniso_label
+_atom_site_aniso_U_11
+_atom_site_aniso_U_22
+_atom_site_aniso_U_33
+_atom_site_aniso_U_12
+_atom_site_aniso_U_13
+_atom_site_aniso_U_23
+Al1 0.03843 0.02646 0.02219 -0.00394 0.01855 -0.00085
+Si1 0.03843 0.02646 0.02219 -0.00394 0.01855 -0.00085
+Al2 0.03758 0.02134 0.02595 -0.00099 0.01831 -0.00042
+Si2 0.03758 0.02134 0.02595 -0.00099 0.01831 -0.00042
+Na 0.02705 0.09133 0.06991 0.00000 0.02124 0.00000
+K 0.02705 0.09133 0.06991 0.00000 0.02124 0.00000
+Na 0.02705 0.09133 0.06991 0.00000 0.02124 0.00000
+O1 0.06833 0.04182 0.02051 0.00000 0.02343 0.00000
+O2 0.05409 0.02731 0.04061 0.00000 0.02173 0.00000
+O3 0.05181 0.05463 0.06070 -0.00296 0.03881 0.00465
+O4 0.05324 0.03158 0.05861 -0.00592 0.03320 -0.00592
+O5 0.05409 0.03841 0.04375 0.00739 0.02002 0.00676
+

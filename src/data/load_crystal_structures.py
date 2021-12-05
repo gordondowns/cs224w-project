@@ -84,3 +84,4 @@ def load_cif_data(
         mineral_names.append(mineral_name)
         graphs.append(graph)
     return file_paths_list, mineral_names, graphs
+

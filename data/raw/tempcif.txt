@@ -1,0 +1,62 @@
+data_global
+_chemical_name_mineral 'Yftisite-(Y)'
+loop_
+_publ_author_name
+'Balko V P'
+'Bakakin V V'
+_journal_name_full 'Zhurnal Strukturnoi Khimii'
+_journal_volume 16 
+_journal_year 1975
+_journal_page_first 837
+_journal_page_last 842
+_publ_section_title
+;
+ Crystal-structure of natural yttrium and rare-earth fluorotitano-silicate
+ (Y,Ree)4(F,OH)6TiO[SiO4]2 (yftisite)
+;
+_database_code_amcsd 0015895
+_chemical_formula_sum 'Y4 Ti Si2 O9 F6'
+_cell_length_a 14.949
+_cell_length_b 10.626
+_cell_length_c 7.043
+_cell_angle_alpha 90
+_cell_angle_beta 90
+_cell_angle_gamma 90
+_cell_volume 1118.767
+_exptl_crystal_density_diffrn      4.261
+_symmetry_space_group_name_H-M 'C m c m'
+loop_
+_space_group_symop_operation_xyz
+  'x,y,z'
+  '1/2+x,1/2+y,z'
+  'x,-y,1/2+z'
+  '1/2+x,1/2-y,1/2+z'
+  '-x,y,1/2-z'
+  '1/2-x,1/2+y,1/2-z'
+  '-x,y,z'
+  '1/2-x,1/2+y,z'
+  'x,-y,-z'
+  '1/2+x,1/2-y,-z'
+  'x,y,1/2-z'
+  '1/2+x,1/2+y,1/2-z'
+  '-x,-y,1/2+z'
+  '1/2-x,1/2-y,1/2+z'
+  '-x,-y,-z'
+  '1/2-x,1/2-y,-z'
+loop_
+_atom_site_label
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_U_iso_or_equiv
+Y1   0.14640   0.43680   0.25000   0.01520
+Y2   0.13130   0.79330   0.25000   0.01267
+Ti   0.00000   0.00000   0.50000   0.01646
+Si   0.15590   0.12000   0.25000   0.00253
+O1   0.09540   0.12620   0.05530   0.01267
+O2   0.29520   0.48540   0.25000   0.00887
+O3   0.22010   0.24870   0.25000   0.00887
+O4   0.50000   0.43370   0.25000   0.00887
+F1   0.35820   0.11810   0.06100   0.01140
+F2   0.00000   0.42040   0.25000   0.05319
+F3   0.00000   0.69870   0.25000   0.02406
