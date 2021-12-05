@@ -50,15 +50,15 @@ def load_single_crystal_structure(file_path, min_distance_for_edge=0.001, max_di
         electronegativity = electronegativity_dict[el]
         G.add_node(i,
             element = el, 
-            xyz = xyz, 
+            # xyz = xyz, 
             occ = occ, 
             Biso = Biso, 
             atomic_number = atomic_number, 
             atomic_weight = atomic_weight, 
-            electronegativity = electronegativity
+            electronegativity = electronegativity,
         )
         if verbose:
-            print(i,el,atomic_number,atomic_weight,electronegativity,xyz,occ,Biso)
+            print(i,el,atomic_number,atomic_weight,electronegativity,occ,Biso)
 
     for i1,xyz1 in enumerate(atom_xyz_cartesian[:-1]):
         for i2,xyz2 in enumerate(atom_xyz_cartesian[i1+1:],start=i1+1):
