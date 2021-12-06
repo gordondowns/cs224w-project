@@ -1,0 +1,11 @@
+v1
+    1328 pairs of structures and spectra
+    asymmetric unit only
+    edges between every pair of nodes
+    atoms sharing a site each get their own nodes
+    randomly pair Raman spectra with crystal structures
+    include high-T and high-P crystal structures
+    the 61 minerals for which we have at least 10 spectra and 10 structures (except diamond)
+    feature vectors x are [atomic_number,atomic_weight,electronegativity,occ,Biso]
+    intending to copy https://github.com/pyg-team/pytorch_geometric/blob/master/examples/qm9_pretrained_schnet.py
+

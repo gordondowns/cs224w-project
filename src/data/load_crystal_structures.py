@@ -1,11 +1,9 @@
 from ..utils.xpow.read_cif import read_cif
-# from read_cif import read_cif
 import numpy as np
 from numpy import cos, sin
 from glob import glob
 import networkx as nx
 import pandas as pd
-
 
 # get dicts from periodic table
 df = pd.read_csv("../data/raw/periodic_table_from_wikipedia.csv")
@@ -45,17 +43,15 @@ def load_single_crystal_structure(file_path, min_distance_for_edge=0.001, max_di
         print("i el atomic_number atomic_weight electronegativity xyz occ Biso")
     for i,(el,xyz,occ,Biso) in enumerate(zip(atom_elements,atom_xyz_cartesian,atom_occ,atom_Biso)):
         # look up atomic number and weight
-        atomic_number= atomic_number_dict[el]
-        atomic_weight = atomic_weight_dict[el]
-        electronegativity = electronegativity_dict[el]
+        atomic_number = atomic_number_dict[el]
+        atomic_weight = float(atomic_weight_dict[el])
+        electronegativity = float(electronegativity_dict[el])
+        node_attributes = [atomic_number,atomic_weight,electronegativity,occ,Biso]
         G.add_node(i,
             element = el,
-            xyz = xyz, 
-            occ = occ, 
-            Biso = Biso, 
-            atomic_number = atomic_number, 
-            atomic_weight = atomic_weight, 
-            electronegativity = electronegativity,
+            z = atomic_number,
+            x = node_attributes,
+            pos = xyz,
         )
         if verbose:
             print(i,el,atomic_number,atomic_weight,xyz,electronegativity,occ,Biso)
