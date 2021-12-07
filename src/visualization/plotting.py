@@ -23,6 +23,5 @@ def plot_spectra(pts_pred, pts_true=None):
         ys_true = [pt[1] for pt in pts_true]
         plots.append(plt.plot(xs_true, ys_true, label='true spectrum')[0])
 
-    print(plots)
     plt.legend(handles=plots)
     plt.show()

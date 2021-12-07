@@ -11,9 +11,11 @@ import os.path as osp
 import torch
 from torch.nn import Linear, ReLU, MSELoss
 
+import numpy as np
 from torch_geometric.nn import SchNet, Sequential
 from torch_geometric.loader import DataLoader
 from src.data.dataset import Crystals
+from src.visualization.plotting import plot_spectra
 
 # **Model**
 
@@ -38,8 +40,8 @@ dataset = Crystals(save_path)
 dataset[0] 
 
 # %%
-train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=True)
-optimizer = torch.optim.Adam(model.parameters(), lr=0.00001, weight_decay=5e-4)
+train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=False)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)#, weight_decay=5e-4)
 loss_fn = MSELoss()
 
 loader = DataLoader(train_dataset, batch_size=1)
@@ -68,9 +70,23 @@ for epoch in range(5):
         # print(pred.shape)
 
 from matplotlib import pyplot as plt
-plt.plot(loss_list)
+plt.plot(loss_list,linewidth=2)
 plt.yscale('log')
 plt.show()
 
+model.eval()
+for data in loader:
+    data = data.to(device)
+    pred = model(data.z, data.pos).detach().cpu().numpy().flatten()
+    true = data.y.detach().cpu().numpy().flatten()
+
+    xs = np.arange(1000.0,500.0,-10.0)
+
+    P = [(x, p) for (x, p) in zip(xs, pred)]
+    Y = [(x, y) for (x, y) in zip(xs, true)]
+
+    plot_spectra(P, Y)
+
+    break
 
 
