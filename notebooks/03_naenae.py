@@ -71,7 +71,7 @@ def val(model, val_dataloader):
 
 
 loss_list = []
-for epoch in range(5000):
+for epoch in range(1800):
     model.train()
     print(epoch)
     optimizer.zero_grad()
