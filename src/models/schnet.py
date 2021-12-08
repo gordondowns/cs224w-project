@@ -30,6 +30,7 @@ qm9_target_dict = {
     11: 'heat_capacity',
 }
 
+# Our only modification to the original schnet model in torch_geometric.nn.SchNet is adding out_features
 
 class SchNet(torch.nn.Module):
     r"""The continuous-filter convolutional neural network SchNet from the
@@ -82,7 +83,8 @@ class SchNet(torch.nn.Module):
 
     url = 'http://www.quantum-machine.org/datasets/trained_schnet_models.zip'
 
-    def __init__(self, hidden_channels: int = 128, num_filters: int = 128,
+    def __init__(self, hidden_channels: int = 128, out_features: int = 1,
+                 num_filters: int = 128,
                  num_interactions: int = 6, num_gaussians: int = 50,
                  cutoff: float = 10.0, max_num_neighbors: int = 32,
                  readout: str = 'add', dipole: bool = False,
@@ -93,6 +95,7 @@ class SchNet(torch.nn.Module):
         import ase
 
         self.hidden_channels = hidden_channels
+        self.out_features = out_features
         self.num_filters = num_filters
         self.num_interactions = num_interactions
         self.num_gaussians = num_gaussians
@@ -119,7 +122,7 @@ class SchNet(torch.nn.Module):
 
         self.lin1 = Linear(hidden_channels, hidden_channels // 2)
         self.act = ShiftedSoftplus()
-        self.lin2 = Linear(hidden_channels // 2, 1)
+        self.lin2 = Linear(hidden_channels // 2, out_features)
 
         self.register_buffer('initial_atomref', atomref)
         self.atomref = None

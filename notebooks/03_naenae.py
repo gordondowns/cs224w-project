@@ -15,8 +15,9 @@ import torch
 from torch.nn import Linear, ReLU, MSELoss
 
 import numpy as np
-from torch_geometric.nn import SchNet, Sequential
+from torch_geometric.nn import Sequential#, SchNet
 from torch_geometric.loader import DataLoader
+from src.models.schnet import SchNet
 from src.data.dataset import Crystals
 from src.visualization.plotting import plot_spectra
 from matplotlib import pyplot as plt
@@ -28,7 +29,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = Sequential(
     'z, pos, batch',
     [
-        (SchNet(hidden_channels=1024),'z, pos, batch->z'),
+        (SchNet(hidden_channels=1024,out_features=256),'z, pos, batch->z'),
         # Linear(),
         ReLU(inplace=True),
         Linear(256, 128),
@@ -73,7 +74,7 @@ save_model_at_most_every_n_epochs = 50
 best_val_mse_epoch = 0
 best_model_wts = copy.deepcopy(model.state_dict())
 best_val_mse = np.inf
-for epoch in range(3):
+for epoch in range(2001):
     model.train()
     print(epoch)
     optimizer.zero_grad()
