@@ -2,8 +2,11 @@
 
 # add top repo dir to path so that src can be imported
 import sys
+import os
+from datetime import datetime
 
 from torch.nn.modules.activation import Sigmoid
+from torch.utils.tensorboard import SummaryWriter
 sys.path.append("..")
 sys.path.append('C:/Users/gordon/Desktop/cs224w-project')
 
@@ -15,7 +18,7 @@ from torch.nn import Linear, ReLU, MSELoss, Tanh
 
 import numpy as np
 from torch_geometric.nn import SchNet, Sequential
-from torch_geometric.loader import DataLoader
+from torch_geometric.loader import DataLoader, dataloader
 from src.data.dataset import Crystals
 from src.visualization.plotting import plot_spectra
 
@@ -37,6 +40,11 @@ model = Sequential(
 
 # **Init**
 
+log_dir = 'logs'
+now = datetime.now()
+dt_string = now.strftime("%Y%m%d-%H%M%S")
+log_path = os.path.join(log_dir, dt_string)
+writer = SummaryWriter(log_path)
 save_path = 'data/processed/v1.pt'
 dataset = Crystals(save_path)
 dataset[0] 
@@ -45,39 +53,41 @@ train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=Fals
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)#, weight_decay=5e-4)
 loss_fn = MSELoss()
 
-loader = DataLoader(train_dataset, batch_size=256)
+train_loader = DataLoader(train_dataset, batch_size=256)
+val_loader = DataLoader(val_dataset, batch_size=256)
 
 # **Train loop**
 
-DataLoader(val_dataset, batch_size=256)
 def val(model, val_dataloader):
     model.eval()
-    mse = 0
-    for data in val_dataloader:
-        data = data.to(device)
-        pred = model(data.z, data.pos, data.batch)
+    with torch.no_grad():
+        mse = 0
+        for data in val_dataloader:
+            data = data.to(device)
+            pred = model(data.z, data.pos, data.batch)
 
-        mse += loss_fn(pred, data.y)
-    return mse
+            mse += loss_fn(pred, data.y)
+        return mse / len(val_dataloader)
 
 
 loss_list = []
-for epoch in range(1000):
+for epoch in range(5000):
     model.train()
     print(epoch)
     optimizer.zero_grad()
-    for i,data in enumerate(loader):
-        # print(i)
+    for i,data in enumerate(train_loader):
         data = data.to(device)
         pred = model(data.z, data.pos, data.batch)
 
         loss = loss_fn(pred, data.y)
         loss_list.append(loss.item())
-        # print(loss)
         loss.backward()
         optimizer.step()
-        # print(pred)
-        # print(pred.shape)
+    
+    train_mse = val(model, train_loader)
+    val_mse = val(model, val_loader)
+    writer.add_scalar('train MSE', train_mse, epoch)
+    writer.add_scalar('val MSE', val_mse, epoch)
 
 from matplotlib import pyplot as plt
 plt.plot(loss_list,linewidth=.2)
