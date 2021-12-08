@@ -4,23 +4,22 @@
 import sys
 import os
 from datetime import datetime
+import copy
 
-from torch.nn.modules.activation import Sigmoid
 from torch.utils.tensorboard import SummaryWriter
 sys.path.append("..")
 sys.path.append('C:/Users/gordon/Desktop/cs224w-project')
 
 
-import os.path as osp
-
 import torch
-from torch.nn import Linear, ReLU, MSELoss, Tanh
+from torch.nn import Linear, ReLU, MSELoss
 
 import numpy as np
 from torch_geometric.nn import SchNet, Sequential
-from torch_geometric.loader import DataLoader, dataloader
+from torch_geometric.loader import DataLoader
 from src.data.dataset import Crystals
 from src.visualization.plotting import plot_spectra
+from matplotlib import pyplot as plt
 
 # **Model**
 
@@ -45,9 +44,9 @@ now = datetime.now()
 dt_string = now.strftime("%Y%m%d-%H%M%S")
 log_path = os.path.join(log_dir, dt_string)
 writer = SummaryWriter(log_path)
-save_path = 'data/processed/v1.pt'
-dataset = Crystals(save_path)
-dataset[0] 
+dataset_path = 'data/processed/v1.pt'
+dataset = Crystals(dataset_path)
+save_model_dir = 'models'
 
 train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=False)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)#, weight_decay=5e-4)
@@ -69,9 +68,12 @@ def val(model, val_dataloader):
             mse += loss_fn(pred, data.y)
         return mse / len(val_dataloader)
 
-
 loss_list = []
-for epoch in range(1800):
+save_model_at_most_every_n_epochs = 50
+best_val_mse_epoch = 0
+best_model_wts = copy.deepcopy(model.state_dict())
+best_val_mse = np.inf
+for epoch in range(3):
     model.train()
     print(epoch)
     optimizer.zero_grad()
@@ -89,9 +91,21 @@ for epoch in range(1800):
     writer.add_scalar('train MSE', train_mse, epoch)
     writer.add_scalar('val MSE', val_mse, epoch)
 
-from matplotlib import pyplot as plt
+    if epoch % save_model_at_most_every_n_epochs == 0:
+        if val_mse < best_val_mse:
+            best_model_wts = copy.deepcopy(model.state_dict())
+            model_save_path = os.path.join(save_model_dir, f'{dt_string}_epoch{epoch:04d}_mse{val_mse:.4f}.pt')
+            torch.save(model,model_save_path)
+            print("validation MSE loss:",val_mse)
+            print("model saved to",model_save_path)
+
+# load best model
+model.load_state_dict(best_model_wts)
+
 plt.plot(loss_list,linewidth=.2)
 plt.yscale('log')
+plt.ylabel('MSE loss')
+plt.xlabel('epoch')
 plt.show()
 
 model.eval()
