@@ -17,7 +17,7 @@ class Crystals(InMemoryDataset):
     
     def get_splits(self, deterministic=True):
         seed = 0 if deterministic else None
-        train, val_test = train_test_split(self, test_size=.3, random_state=seed)
+        train, val_test = train_test_split(self, test_size=.99, random_state=seed)
         val, test = train_test_split(val_test, test_size=.5, random_state=seed)
         return train, val, test
 

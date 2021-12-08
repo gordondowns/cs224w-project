@@ -27,11 +27,12 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = Sequential(
     'z, pos, batch',
     [
-        (SchNet(),'z, pos, batch-> z'),
-        Sigmoid(),
+        (SchNet(hidden_channels=1024),'z, pos, batch->z'),
         # Linear(),
-        # ReLU(inplace=True),
-        # Linear()
+        ReLU(inplace=True),
+        Linear(256, 128),
+        ReLU(inplace=True),
+        Linear(128, 50),
     ]
 ).to(device)
 
@@ -55,7 +56,7 @@ loader = DataLoader(train_dataset, batch_size=256)
 # %%
 loss_list = []
 model.train()
-for epoch in range(500):
+for epoch in range(5000):
     print(epoch)
     optimizer.zero_grad()
     for i,data in enumerate(loader):
@@ -78,7 +79,7 @@ plt.yscale('log')
 plt.show()
 
 model.eval()
-for data in loader:
+for data in DataLoader(train_dataset, batch_size=1):
     data = data.to(device)
     pred = model(data.z, data.pos, data.batch).detach().cpu().numpy().flatten()
     true = data.y.detach().cpu().numpy().flatten()
