@@ -23,7 +23,6 @@ from src.visualization.plotting import plot_spectra
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-# TODO: Dimensions for lin layers
 model = Sequential(
     'z, pos, batch',
     [
@@ -38,25 +37,33 @@ model = Sequential(
 
 # **Init**
 
-# %%
 save_path = 'data/processed/v1.pt'
 dataset = Crystals(save_path)
 dataset[0] 
 
-# %%
 train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=False)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)#, weight_decay=5e-4)
 loss_fn = MSELoss()
 
 loader = DataLoader(train_dataset, batch_size=256)
 
-# %% [markdown]
 # **Train loop**
 
-# %%
+DataLoader(val_dataset, batch_size=256)
+def val(model, val_dataloader):
+    model.eval()
+    mse = 0
+    for data in val_dataloader:
+        data = data.to(device)
+        pred = model(data.z, data.pos, data.batch)
+
+        mse += loss_fn(pred, data.y)
+    return mse
+
+
 loss_list = []
-model.train()
-for epoch in range(5000):
+for epoch in range(1000):
+    model.train()
     print(epoch)
     optimizer.zero_grad()
     for i,data in enumerate(loader):
@@ -64,7 +71,6 @@ for epoch in range(5000):
         data = data.to(device)
         pred = model(data.z, data.pos, data.batch)
 
-        # TODO: make sure pred and data.y have same dim and have corresponding elements
         loss = loss_fn(pred, data.y)
         loss_list.append(loss.item())
         # print(loss)
@@ -79,7 +85,7 @@ plt.yscale('log')
 plt.show()
 
 model.eval()
-for data in DataLoader(train_dataset, batch_size=1):
+for data in DataLoader(val_dataset, batch_size=1):
     data = data.to(device)
     pred = model(data.z, data.pos, data.batch).detach().cpu().numpy().flatten()
     true = data.y.detach().cpu().numpy().flatten()
