@@ -2,6 +2,8 @@
 
 # add top repo dir to path so that src can be imported
 import sys
+
+from torch.nn.modules.activation import Sigmoid
 sys.path.append("..")
 sys.path.append('C:/Users/gordon/Desktop/cs224w-project')
 
@@ -9,7 +11,7 @@ sys.path.append('C:/Users/gordon/Desktop/cs224w-project')
 import os.path as osp
 
 import torch
-from torch.nn import Linear, ReLU, MSELoss
+from torch.nn import Linear, ReLU, MSELoss, Tanh
 
 import numpy as np
 from torch_geometric.nn import SchNet, Sequential
@@ -23,9 +25,10 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # TODO: Dimensions for lin layers
 model = Sequential(
-    'z, pos',
+    'z, pos, batch',
     [
-        (SchNet(),'z, pos -> z'),
+        (SchNet(),'z, pos, batch-> z'),
+        Sigmoid(),
         # Linear(),
         # ReLU(inplace=True),
         # Linear()
@@ -44,7 +47,7 @@ train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=Fals
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)#, weight_decay=5e-4)
 loss_fn = MSELoss()
 
-loader = DataLoader(train_dataset, batch_size=1)
+loader = DataLoader(train_dataset, batch_size=256)
 
 # %% [markdown]
 # **Train loop**
@@ -52,13 +55,13 @@ loader = DataLoader(train_dataset, batch_size=1)
 # %%
 loss_list = []
 model.train()
-for epoch in range(5):
+for epoch in range(500):
     print(epoch)
     optimizer.zero_grad()
     for i,data in enumerate(loader):
         # print(i)
         data = data.to(device)
-        pred = model(data.z, data.pos)
+        pred = model(data.z, data.pos, data.batch)
 
         # TODO: make sure pred and data.y have same dim and have corresponding elements
         loss = loss_fn(pred, data.y)
@@ -70,14 +73,14 @@ for epoch in range(5):
         # print(pred.shape)
 
 from matplotlib import pyplot as plt
-plt.plot(loss_list,linewidth=2)
+plt.plot(loss_list,linewidth=.2)
 plt.yscale('log')
 plt.show()
 
 model.eval()
 for data in loader:
     data = data.to(device)
-    pred = model(data.z, data.pos).detach().cpu().numpy().flatten()
+    pred = model(data.z, data.pos, data.batch).detach().cpu().numpy().flatten()
     true = data.y.detach().cpu().numpy().flatten()
 
     xs = np.arange(1000.0,500.0,-10.0)
@@ -87,6 +90,6 @@ for data in loader:
 
     plot_spectra(P, Y)
 
-    break
+    
 
 
