@@ -23,9 +23,10 @@ def load_raman_data(
             raman_spectra.append(raman_spectrum)
             wavelengths.append(wavelength)
         except Exception as e:
-            print(e)
-            print(f"problem file: {fp}")
-            print("")
+            if verbose:
+                print(e)
+                print(f"problem file: {fp}")
+                print("")
     
     # raman_spectra = np.vstack(raman_spectra)
     return file_paths_list, mineral_names, wavelengths, raman_spectra
@@ -37,6 +38,8 @@ def load_single_raman_spectrum(
     mineral_name = file_path.split('\\')[-1].split('/')[-1].split('__')[0]
     wavelength = int(file_path.split('__Raman__')[-1].split('__')[0])
     temp_apc = apc.TopLevel(file_path,twotheta_ranges=[(0.0,100000.0)],print_warnings=False)
+    if 0 in temp_apc.input_profile.xy_data[1]:
+        raise Exception('Model wavenumbers too broad for this spectrum. Skip.')
     raman_spectrum = process_raman_spectrum(temp_apc.input_profile.xy_data,model_wavenumber_values)
     return mineral_name, wavelength, raman_spectrum
 
