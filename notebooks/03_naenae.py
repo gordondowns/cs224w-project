@@ -30,13 +30,13 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = Sequential(
     'z, pos, batch',
     [
-        (SchNet(hidden_channels=1500,out_features=500),'z, pos, batch->z'),
+        (SchNet(hidden_channels=1024,out_features=256),'z, pos, batch->z'),
         ReLU(inplace=True),
         Dropout(0.5),
-        Linear(500, 350),
+        Linear(256, 128),
         ReLU(inplace=True),
         Dropout(0.5),
-        Linear(350, len(model_wavenumbers)),
+        Linear(128, len(model_wavenumbers)),
     ]
 ).to(device)
 
@@ -76,7 +76,7 @@ save_model_at_most_every_n_epochs = 50
 best_val_mse_epoch = 0
 best_model_wts = copy.deepcopy(model.state_dict())
 best_val_mse = np.inf
-for epoch in range(25001):
+for epoch in range(30001):
     model.train()
     print(epoch)
     optimizer.zero_grad()
