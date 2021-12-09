@@ -12,12 +12,12 @@ v1
 
 v2
     1491 pairs of structures and spectra
-    asymmetric unit only
-    edges between every pair of nodes
-    atoms sharing a site each get their own nodes
-    randomly pair Raman spectra with crystal structures
-    include high-T and high-P crystal structures
     the 94 minerals for which we have at least 5 spectra and 5 structures (except diamond and sulphur)
-    feature vectors x are [atomic_number,atomic_weight,electronegativity,occ,Biso]
-    intending to copy https://github.com/pyg-team/pytorch_geometric/blob/master/examples/qm9_pretrained_schnet.py
     raman spectra are interpolated to wavenumbers in data/processed/wavenumber_vals_v2.npy (length 1062)
+
+v3
+    2796 pairs of structures and spectra
+    the 278 minerals for which we have at least 1 spectrum and 1 structure (except diamond, sulphur, and silicon)
+    raman spectra are interpolated to wavenumbers in data/processed/wavenumber_vals_v3.npy (length 266, every 4th of v2)
+    added "unrated" quality Raman spectra
+    added mineral names to graphs
