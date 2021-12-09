@@ -76,7 +76,7 @@ save_model_at_most_every_n_epochs = 50
 best_val_mse_epoch = 0
 best_model_wts = copy.deepcopy(model.state_dict())
 best_val_mse = np.inf
-for epoch in range(30001):
+for epoch in range(8500):
     model.train()
     print(epoch)
     optimizer.zero_grad()
@@ -97,14 +97,14 @@ for epoch in range(30001):
     if epoch % save_model_at_most_every_n_epochs == 0:
         if val_mse < best_val_mse: #FIXME: I forgot to update best_val_mse, so it always saves.
             best_model_wts = copy.deepcopy(model.state_dict())
-            model_save_path = os.path.join(save_model_dir, f'{dt_string}_epoch{epoch:04d}_mse{val_mse:.4f}.pt')
-            torch.save(model,model_save_path)
+            model_save_path = os.path.join(save_model_dir, f'{dt_string}_epoch{epoch:05d}_mse{val_mse:.4f}.pt')
+            torch.save(model.state_dict(),model_save_path)
             print("validation MSE loss:",val_mse)
             print("model saved to",model_save_path)
 
 # save final model, just out of curiosity
 model_save_path = os.path.join(save_model_dir, f'{dt_string}_epoch{epoch:04d}_mse{val_mse:.4f}.pt')
-torch.save(model,model_save_path)
+torch.save(model.state_dict(),model_save_path)
 print("terminal validation MSE loss:",val_mse)
 print("terminal model saved to",model_save_path)
 
