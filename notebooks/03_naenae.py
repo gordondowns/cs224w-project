@@ -30,13 +30,13 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = Sequential(
     'z, pos, batch',
     [
-        (SchNet(hidden_channels=1024,out_features=256),'z, pos, batch->z'),
+        (SchNet(hidden_channels=1500,out_features=500),'z, pos, batch->z'),
         ReLU(inplace=True),
         Dropout(0.5),
-        Linear(256, 128),
+        Linear(500, 350),
         ReLU(inplace=True),
         Dropout(0.5),
-        Linear(128, len(model_wavenumbers)),
+        Linear(350, len(model_wavenumbers)),
     ]
 ).to(device)
 
@@ -95,7 +95,7 @@ for epoch in range(30001):
     writer.add_scalar('val MSE', val_mse, epoch)
 
     if epoch % save_model_at_most_every_n_epochs == 0:
-        if val_mse < best_val_mse:
+        if val_mse < best_val_mse: #FIXME: I forgot to update best_val_mse, so it always saves.
             best_model_wts = copy.deepcopy(model.state_dict())
             model_save_path = os.path.join(save_model_dir, f'{dt_string}_epoch{epoch:04d}_mse{val_mse:.4f}.pt')
             torch.save(model,model_save_path)
