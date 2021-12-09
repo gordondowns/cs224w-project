@@ -76,7 +76,7 @@ save_model_at_most_every_n_epochs = 50
 best_val_mse_epoch = 0
 best_model_wts = copy.deepcopy(model.state_dict())
 best_val_mse = np.inf
-for epoch in range(30001):
+for epoch in range(25001):
     model.train()
     print(epoch)
     optimizer.zero_grad()
