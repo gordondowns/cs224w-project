@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 # **Model**
 
-model_wavenumbers = np.load('data/processed/wavenumber_vals_v2.npy')
+model_wavenumbers = np.load('data/processed/wavenumber_vals_v3.npy')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 model = Sequential(
@@ -47,12 +47,12 @@ now = datetime.now()
 dt_string = now.strftime("%Y%m%d-%H%M%S")
 log_path = os.path.join(log_dir, dt_string)
 writer = SummaryWriter(log_path)
-dataset_path = 'data/processed/v2.pt'
+dataset_path = 'data/processed/v3.pt'
 dataset = Crystals(dataset_path)
 save_model_dir = 'models'
 
 train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=True)
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)#, weight_decay=5e-4)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)
 loss_fn = MSELoss()
 
 train_loader = DataLoader(train_dataset, batch_size=256)
@@ -76,7 +76,7 @@ save_model_at_most_every_n_epochs = 50
 best_val_mse_epoch = 0
 best_model_wts = copy.deepcopy(model.state_dict())
 best_val_mse = np.inf
-for epoch in range(3001):
+for epoch in range(30001):
     model.train()
     print(epoch)
     optimizer.zero_grad()
@@ -102,6 +102,12 @@ for epoch in range(3001):
             print("validation MSE loss:",val_mse)
             print("model saved to",model_save_path)
 
+# save final model, just out of curiosity
+model_save_path = os.path.join(save_model_dir, f'{dt_string}_epoch{epoch:04d}_mse{val_mse:.4f}.pt')
+torch.save(model,model_save_path)
+print("terminal validation MSE loss:",val_mse)
+print("terminal model saved to",model_save_path)
+
 # load best model
 model.load_state_dict(best_model_wts)
 
@@ -120,7 +126,7 @@ for data in DataLoader(val_dataset, batch_size=1):
     P = [(x, p) for (x, p) in zip(model_wavenumbers, pred)]
     Y = [(x, y) for (x, y) in zip(model_wavenumbers, true)]
 
-    plot_spectra(P, Y)
+    plot_spectra(P, Y, title=data.mineral[0])
 
 
 

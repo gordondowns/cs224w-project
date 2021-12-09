@@ -11,7 +11,7 @@ def plot_one_dataset(intensity,tt=None):
     plt.grid()
     plt.show()
 
-def plot_spectra(pts_pred, pts_true=None, legend=True):
+def plot_spectra(pts_pred, pts_true=None, legend=True, title=''):
     plots = []
     xs_pred = [pt[0] for pt in pts_pred]
     ys_pred = [pt[1] for pt in pts_pred]
@@ -25,6 +25,8 @@ def plot_spectra(pts_pred, pts_true=None, legend=True):
 
     if legend:
         plt.legend(handles=plots)
+    if title:
+        plt.title(title)
     plt.ylabel('Intensity')
     plt.xlabel('Raman shift (cm^-1)')
     plt.show()
