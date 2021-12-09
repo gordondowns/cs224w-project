@@ -1,0 +1,13 @@
+##NAMES=Osarizawaite
+##RRUFFID=R060401
+##IDEAL CHEMISTRY=Cu^2+^Pb^2+^Al_2_(S^6+^O_4_)_2_(OH)_6_
+##LOCALITY=Akita Prefecture, Japan
+##OWNER=RRUFF
+##SOURCE=American Museum of Natural History
+##DESCRIPTION=Yellowish-green granular mass
+##STATUS=The identification of this mineral is not yet confirmed.
+##URL=rruff.info/R060401
+##END=
+
+
+

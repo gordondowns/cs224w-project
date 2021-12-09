@@ -1,0 +1,14 @@
+##NAMES=Vuonnemite
+##RRUFFID=R080015
+##IDEAL CHEMISTRY=Na_6_Na_2_Nb^5+^_2_Na_3_Ti^4+^(Si_2_O_7_)_2_(PO_4_)_2_O_2_(OF)
+##LOCALITY=Kedykevrpahkh Mt., Lovozero Massif, Kola Peninsula, Russia
+##OWNER=RRUFF
+##SOURCE=Michael Scott
+##DESCRIPTION=Yellow scale of platy crystals associated with microcline, pale pink elogated serandite, natrolite, and light brown platy manaksite.
+##STATUS=The identification of this mineral has been confirmed only by single crystal X-ray diffraction.
+##URL=rruff.info/R080015
+5, E
+##END=
+
+
+
