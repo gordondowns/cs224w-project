@@ -12,7 +12,7 @@ sys.path.append('C:/Users/gordon/Desktop/cs224w-project')
 
 
 import torch
-from torch.nn import Linear, ReLU, MSELoss
+from torch.nn import Linear, ReLU, MSELoss, Dropout
 
 import numpy as np
 from torch_geometric.nn import Sequential#, SchNet
@@ -24,17 +24,19 @@ from matplotlib import pyplot as plt
 
 # **Model**
 
+model_wavenumbers = np.load('data/processed/wavenumber_vals_v2.npy')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 model = Sequential(
     'z, pos, batch',
     [
         (SchNet(hidden_channels=1024,out_features=256),'z, pos, batch->z'),
-        # Linear(),
         ReLU(inplace=True),
+        Dropout(0.5),
         Linear(256, 128),
         ReLU(inplace=True),
-        Linear(128, 50),
+        Dropout(0.5),
+        Linear(128, len(model_wavenumbers)),
     ]
 ).to(device)
 
@@ -45,11 +47,11 @@ now = datetime.now()
 dt_string = now.strftime("%Y%m%d-%H%M%S")
 log_path = os.path.join(log_dir, dt_string)
 writer = SummaryWriter(log_path)
-dataset_path = 'data/processed/v1.pt'
+dataset_path = 'data/processed/v2.pt'
 dataset = Crystals(dataset_path)
 save_model_dir = 'models'
 
-train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=False)
+train_dataset, val_dataset, test_dataset = dataset.get_splits(deterministic=True)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)#, weight_decay=5e-4)
 loss_fn = MSELoss()
 
@@ -74,7 +76,7 @@ save_model_at_most_every_n_epochs = 50
 best_val_mse_epoch = 0
 best_model_wts = copy.deepcopy(model.state_dict())
 best_val_mse = np.inf
-for epoch in range(2001):
+for epoch in range(3001):
     model.train()
     print(epoch)
     optimizer.zero_grad()
@@ -115,13 +117,10 @@ for data in DataLoader(val_dataset, batch_size=1):
     pred = model(data.z, data.pos, data.batch).detach().cpu().numpy().flatten()
     true = data.y.detach().cpu().numpy().flatten()
 
-    xs = np.arange(1000.0,500.0,-10.0)
-
-    P = [(x, p) for (x, p) in zip(xs, pred)]
-    Y = [(x, y) for (x, y) in zip(xs, true)]
+    P = [(x, p) for (x, p) in zip(model_wavenumbers, pred)]
+    Y = [(x, y) for (x, y) in zip(model_wavenumbers, true)]
 
     plot_spectra(P, Y)
 
-    
 
 
