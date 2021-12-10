@@ -4,9 +4,13 @@ from numpy import cos, sin
 from glob import glob
 import networkx as nx
 import pandas as pd
+import sys
 
 # get dicts from periodic table
-df = pd.read_csv("../data/raw/periodic_table_from_wikipedia.csv")
+if '/content/cs224w-project' in sys.path:
+    df = pd.read_csv("cs224w-project/data/raw/periodic_table_from_wikipedia.csv")
+else:
+    df = pd.read_csv("../data/raw/periodic_table_from_wikipedia.csv")
 atomic_number_dict = dict(zip(df['Symbol'], df["Atomic number"]))
 atomic_weight_dict = dict(zip(df['Symbol'], df["Standard atomic weight"]))
 electronegativity_dict = dict(zip(df['Symbol'], df["Electronegativity"]))
